@@ -7,21 +7,32 @@ import { uid } from 'react-uid';
 export class App extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {
-      todos: [
-        {id: 1, value: 'Petz', status: 'active'},
-        {id: 2, value: 'Mulm', status: 'active'},
-        {id: 3, value: 'yeee', status: 'active'}
-      ],
-      userInput: '',
-      category: 'all'
-    };
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleDelete = this.handleDelete.bind(this);
     this.transitionEnd = this.transitionEnd.bind(this);
     this.handleComplete = this.handleComplete.bind(this);
     this.handleSelect = this.handleSelect.bind(this);
+
+    if (localStorage.getItem('todos') === null) {
+        this.state = {
+          todos: [],
+          userInput: '',
+          category: 'all'
+        }
+    } else {
+        this.state = {
+          todos: JSON.parse(localStorage.getItem('todos')),
+          userInput: '',
+          category: 'all'
+        }
+    }
+  }
+
+  componentDidUpdate(prevState) {
+    if (this.state.todos !== prevState.todos) {
+      localStorage.setItem('todos', JSON.stringify(this.state.todos));
+    }
   }
 
   handleChange(e) {
