@@ -19,21 +19,15 @@ export class Todo extends React.Component {
     }
 
     render() {
-        const content = this.props.category === 'all'
-        ? <div onTransitionEnd={() => this.mountOrUnmount()} className={this.getClassName()}>
-            <li className="todo-item">{this.props.todo.value}</li>
-            <button onClick={() => this.props.onComplete(this.props.todo)} className="complete-btn">
-                <i className="fas fa-check"></i>
-            </button>
-            <button onClick={() => this.props.onDelete(this.props.todo)} className="trash-btn">
-                <i className="fas fa-trash"></i>
-            </button>
-        </div>
-        : null;
-
         return(
-            <div>
-            {content}
+            <div onTransitionEnd={() => this.mountOrUnmount()} className={this.getClassName()}>
+                <li className="todo-item">{this.props.todo.value}</li>
+                <button onClick={() => this.props.onComplete(this.props.todo)} className="complete-btn">
+                    <i className="fas fa-check"></i>
+                </button>
+                <button onClick={() => this.props.onDelete(this.props.todo)} className="trash-btn">
+                    <i className="fas fa-trash"></i>
+                </button>
             </div>
         )
     }
