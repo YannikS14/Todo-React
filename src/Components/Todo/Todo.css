@@ -11,6 +11,7 @@
 
 .todo li {
     flex: 1;
+    text-align: left;
 }
 
 .trash-btn, .complete-btn {
