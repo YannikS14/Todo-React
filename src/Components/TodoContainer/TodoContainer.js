@@ -1,84 +1,23 @@
-import React, { Component } from 'react';
+import React from 'react';
 import './TodoContainer.css';
-import { Todo } from '../Todo/Todo';
+import Todo from '../Todo/Todo';
 
-// HOC checking if todos-Array is null
-const withTodosNull = (Component) => (props) =>
-  !props.todos ? null : <Component {...props} />;
-
-// HOC checking if todos-Array is empty
-const withTodosEmpty = (Component) => (props) =>
-  !props.todos.length ? (
+const TodoContainer = ({ todos }) => {
+  return (
     <div className="todo-container">
-      <ul className="todo-list">You have no Todos.</ul>
+      <ul className="todo-list">
+        {todos.map((todo) => (
+          <Todo
+            key={todo.id}
+            //onDelete={this.props.onDelete}
+            text={todo.text}
+            //transitionEnd={this.props.transitionEnd}
+            //onComplete={this.props.onComplete}*/
+          />
+        ))}
+      </ul>
     </div>
-  ) : (
-    <Component {...props} />
   );
+};
 
-//const withTodosFiltered = (Component) => (props) =>
-
-class TodoContainer extends React.Component {
-  render() {
-    if (this.props.category === 'all') {
-      return (
-        <div className="todo-container">
-          <ul className="todo-list">
-            {this.props.todos.map((todo) => (
-              <Todo
-                key={todo.id}
-                onDelete={this.props.onDelete}
-                todo={todo}
-                transitionEnd={this.props.transitionEnd}
-                onComplete={this.props.onComplete}
-              />
-            ))}
-          </ul>
-        </div>
-      );
-    } else if (this.props.category === 'completed') {
-      return (
-        <div className="todo-container">
-          <ul className="todo-list">
-            {this.props.todos.map((todo) =>
-              todo.status === 'completed' ? (
-                <Todo
-                  key={todo.id}
-                  onDelete={this.props.onDelete}
-                  todo={todo}
-                  transitionEnd={this.props.transitionEnd}
-                  onComplete={this.props.onComplete}
-                />
-              ) : null,
-            )}
-          </ul>
-        </div>
-      );
-    } else if (this.props.category === 'uncompleted') {
-      return (
-        <div className="todo-container">
-          <ul className="todo-list">
-            {this.props.todos.map((todo) =>
-              todo.status === 'uncompleted' ? (
-                <Todo
-                  key={todo.id}
-                  onDelete={this.props.onDelete}
-                  todo={todo}
-                  transitionEnd={this.props.transitionEnd}
-                  onComplete={this.props.onComplete}
-                />
-              ) : null,
-            )}
-          </ul>
-        </div>
-      );
-    }
-  }
-}
-
-// Refactor HOCs; Could also use Recompose Library
-const TodoListWithConditionalRendering = withTodosNull(
-  withTodosEmpty(TodoContainer),
-);
-
-export { TodoListWithConditionalRendering };
+export default TodoContainer;

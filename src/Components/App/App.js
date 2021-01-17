@@ -1,10 +1,10 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './App.css';
-import { TodoListWithConditionalRendering } from '../TodoContainer/TodoContainer';
-import { TodoForm } from '../TodoForm/TodoForm';
-import { uid } from 'react-uid';
+import TodoContainer from '../TodoContainer/TodoContainer';
+import TodoForm from '../TodoForm/TodoForm';
 
-export class App extends React.Component {
+function App() {
+  /*
   constructor(props) {
     super(props);
     this.handleChange = this.handleChange.bind(this);
@@ -84,28 +84,38 @@ export class App extends React.Component {
       category: event.target.value,
     });
   }
+  */
 
-  render() {
-    return (
-      <div className="App">
-        <header>
-          <h1>React Todo List</h1>
-        </header>
-        <TodoForm
-          onChange={this.handleChange}
+  // State Hooks
+  const [inputText, setInputText] = useState('');
+  const [todos, setTodos] = useState([]);
+
+  return (
+    <div className="App">
+      <header>
+        <h1>React Todo List</h1>
+      </header>
+      <TodoForm
+        setInputText={setInputText}
+        setTodos={setTodos}
+        inputText={inputText}
+        todos={todos}
+        /*onChange={this.handleChange}
           onSubmit={this.handleSubmit}
           userInput={this.state.userInput}
           handleSelect={this.handleSelect}
-          category={this.state.category}
-        />
-        <TodoListWithConditionalRendering
-          onDelete={this.handleDelete}
+          category={this.state.category}*/
+      />
+      <TodoContainer
+        todos={todos}
+        /*onDelete={this.handleDelete}
           todos={this.state.todos}
           transitionEnd={this.transitionEnd}
           onComplete={this.handleComplete}
-          category={this.state.category}
-        />
-      </div>
-    );
-  }
+          category={this.state.category}*/
+      />
+    </div>
+  );
 }
+
+export { App };

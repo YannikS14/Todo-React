@@ -1,7 +1,8 @@
 import React from 'react';
 import './Todo.css';
 
-export class Todo extends React.Component {
+const Todo = ({ text }) => {
+  /*
   mountOrUnmount() {
     if (this.props.todo.status === 'delete') {
       return this.props.transitionEnd(this.props.todo);
@@ -17,27 +18,30 @@ export class Todo extends React.Component {
       return 'todo';
     }
   }
+  */
 
-  render() {
-    return (
-      <div
-        onTransitionEnd={() => this.mountOrUnmount()}
-        className={this.getClassName()}
+  const deleteHandler = () => {};
+
+  return (
+    <div
+      //onTransitionEnd={() => this.mountOrUnmount()}
+      className="todo"
+    >
+      <li className="todo-item">{text}</li>
+      <button
+        //onClick={() => this.props.onComplete(this.props.todo)}
+        className="complete-btn"
       >
-        <li className="todo-item">{this.props.todo.value}</li>
-        <button
-          onClick={() => this.props.onComplete(this.props.todo)}
-          className="complete-btn"
-        >
-          <i className="fas fa-check"></i>
-        </button>
-        <button
-          onClick={() => this.props.onDelete(this.props.todo)}
-          className="trash-btn"
-        >
-          <i className="fas fa-trash"></i>
-        </button>
-      </div>
-    );
-  }
-}
+        <i className="fas fa-check"></i>
+      </button>
+      <button
+        //onClick={() => this.props.onDelete(this.props.todo)}
+        className="trash-btn"
+      >
+        <i className="fas fa-trash"></i>
+      </button>
+    </div>
+  );
+};
+
+export default Todo;
